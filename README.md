@@ -8,7 +8,7 @@ Usage
 
 ```hcl
 module "static-site" {
-  source                  = "git::https://github.com/egarbi/gcdn"
+  source                  = "git::https://github.com/egarbi/terraform-aws-static-site"
   domain                  = "example.com"
   site_name               = "" // Empty string means top level domain
   public_dns_zone         = "Z3XXXXXQLNTSW2" 
