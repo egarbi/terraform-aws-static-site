@@ -1,7 +1,7 @@
 AWS Static Site Terraform module
 ========================
 
-Terraform module which creates an fully functional static site based in S3 and CloudFront
+Terraform module which creates a fully functional static site based in S3 and CloudFront
 
 Usage
 -----
