@@ -1,4 +1,4 @@
-AWS GCDN Terraform module
+AWS Static Site Terraform module
 ========================
 
 Terraform module which creates an fully functional static site based in S3 and CloudFront
@@ -7,7 +7,7 @@ Usage
 -----
 
 ```hcl
-module "simonly-frontend" {
+module "static-site" {
   source                  = "git::https://github.com/egarbi/gcdn"
   domain                  = "example.com"
   site_name               = "" // Empty string means top level domain
