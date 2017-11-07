@@ -1,27 +1,33 @@
 // Global Content Delivery Network
 // S3 + Cloudfront
-// Content of those bucket has been populated manually
+// Content of this bucket will be populated manually
+data "aws_iam_policy_document" "s3_policy" {
+  statement {
+    actions   = ["s3:GetObject"]
+    resources = ["arn:aws:s3:::${var.site_name}${replace(var.domain, ".", "-")}/*"]
+
+    principals {
+      type        = "AWS"
+      identifiers = ["${aws_cloudfront_origin_access_identity.origin_access_identity.iam_arn}"]
+    }
+  }
+
+  statement {
+    actions   = ["s3:ListBucket"]
+    resources = ["arn:aws:s3:::${var.site_name}${replace(var.domain, ".", "-")}"]
+
+    principals {
+      type        = "AWS"
+      identifiers = ["${aws_cloudfront_origin_access_identity.origin_access_identity.iam_arn}"]
+    }
+  }
+}
+
 resource "aws_s3_bucket" "main" {
   bucket = "${var.site_name}${replace(var.domain, ".", "-")}"
   acl    = "public-read"
 
-  policy = <<EOF
-{
-	"Version": "2008-10-17",
-	"Id": "Policy1412590466126",
-	"Statement": [
-		{
-			"Sid": "Stmt1412590461560",
-			"Effect": "Allow",
-			"Principal": {
-				"AWS": "*"
-			},
-			"Action": "s3:GetObject",
-			"Resource": "arn:aws:s3:::${var.site_name}${replace(var.domain, ".", "-")}/*"
-		}
-	]
-}
-EOF
+  policy = "${data.aws_iam_policy_document.s3_policy.json}"
 
   website {
     index_document = "index.html"

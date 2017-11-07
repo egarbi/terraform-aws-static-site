@@ -1,7 +1,16 @@
+resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {
+  comment = "${var.site_name}${var.domain} Created by Terraform"
+}
+
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
     domain_name = "${aws_s3_bucket.main.id}.s3.amazonaws.com"
     origin_id   = "S3-${aws_s3_bucket.main.id}"
+
+    s3_origin_config {
+      origin_access_identity = "${aws_cloudfront_origin_access_identity.origin_access_identity.cloudfront_access_identity_path}"
+    }
+
   }
 
   enabled             = true
