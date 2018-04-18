@@ -10,7 +10,6 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     s3_origin_config {
       origin_access_identity = "${aws_cloudfront_origin_access_identity.origin_access_identity.cloudfront_access_identity_path}"
     }
-
   }
 
   enabled             = true
@@ -59,5 +58,6 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     response_code         = "${var.error_response_code}"
     response_page_path    = "${var.error_response_pagepath}"
   }
-  web_acl_id              = "${var.web_acl_id}"
+
+  web_acl_id = "${var.web_acl_id}"
 }
