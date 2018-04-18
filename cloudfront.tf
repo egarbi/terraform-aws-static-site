@@ -59,4 +59,5 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     response_code         = "${var.error_response_code}"
     response_page_path    = "${var.error_response_pagepath}"
   }
+  web_acl_id              = "${var.web_acl_id}"
 }

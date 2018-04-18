@@ -20,3 +20,7 @@ variable "error_response_code" {
 variable "error_response_pagepath" {
   default = "/404.html"
 }
+
+variable "web_acl_id" {
+  default = ""
+}
